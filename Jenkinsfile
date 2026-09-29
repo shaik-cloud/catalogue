@@ -8,7 +8,7 @@ pipeline {
     environment {
         COURSE = "Jenkins"
         appVersion = ""
-        ACC_ID = "1205-6963-4706"
+        ACC_ID = "120569634706"
         PROJECT = "roboshop"
         COMPONENT = "catalogue"
     }
@@ -45,6 +45,30 @@ pipeline {
                 }
             }
         }
+        //Here you need to select scanner tool and send the analysis to server
+        /* stage('Sonar Scan'){
+            environment {
+                def scannerHome = tool 'sonar-8.0'
+            }
+            steps {
+                script{
+                    withSonarQubeEnv('sonar-server') {
+                        sh  "${scannerHome}/bin/sonar-scanner"
+                    }
+                }
+            }
+        }
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    // Wait for the quality gate status
+                    // abortPipeline: true will fail the Jenkins job if the quality gate is 'FAILED'
+                    waitForQualityGate abortPipeline: true 
+                }
+            }
+        } */
+        
+
         stage('Build Image') {
             steps {
                 script{
@@ -59,7 +83,13 @@ pipeline {
                 }
             }
         }
-        post{
+        
+
+    }
+
+        
+
+    post{
         always{
             echo 'I will always say Hello again!'
             cleanWs()

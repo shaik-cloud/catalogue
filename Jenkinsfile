@@ -31,6 +31,13 @@ pipeline {
             steps {
                 script{
                     sh """
+                        hostname
+                        whoami
+                        which node || true
+                        which npm || true
+                        node --version || true
+                        npm --version || true
+                        echo $PATH
                         npm install
                     """
                 }
